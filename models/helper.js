@@ -1,6 +1,7 @@
 const mongoose=require('mongoose')
 const bcrypt=require('bcrypt')
-const UserModel=require("./userModel")
+const UserModel=require("./userModel");
+const providerModel = require('./providerModel');
 
 async function genHashPassword(password){
 const salt=await bcrypt.genSalt(10);
@@ -17,4 +18,10 @@ async function createUser(name,mobileNo,password){
 return await newUser.save();
 }
 
-module.exports={getUserNameByMobileNo, genHashPassword, createUser}
+
+async function getProviderByProviderName(providername){
+    return await providerModel.findOne({providername});
+    }
+    
+
+module.exports={getUserNameByMobileNo, genHashPassword, createUser, getProviderByProviderName}
