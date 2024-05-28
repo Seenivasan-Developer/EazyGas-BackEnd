@@ -1,5 +1,5 @@
 {
-  "name": "eazygas_backend",
+  "name": "eazygas-backend",
   "version": "1.0.0",
   "description": "Gas Slot Booking",
   "main": "index.js",
