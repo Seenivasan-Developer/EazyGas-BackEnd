@@ -3,7 +3,8 @@ const mongoose = require("mongoose")
 const cors = require("cors")
 const dotenv = require('dotenv')
 const userRoute = require("./routes/userRoute")
-const providerRoute = require('./routes/providerRoute')
+const providerRoute = require('./routes/providerRoute');
+const BookingRoute = require("./routes/BookingRoute");
 dotenv.config();
 
 const app = express();
@@ -19,7 +20,8 @@ app.get('/', (req, res) => {
 });
 //Route Injection
 app.use('/users', userRoute);
-app.use('/providers', providerRoute)
+app.use('/providers', providerRoute);
+app.use('/booking',BookingRoute)
 
 //MongoDB Connection and Port Listening
 mongoose.connect(process.env.MONGO_URL)
