@@ -8,7 +8,7 @@ dotenv.config();
 
 const app = express();
 
-const PORT = "4000";
+const PORT = process.env.PORT;
 
 //Middleware Injection
 app.use(express.json());
@@ -25,7 +25,7 @@ app.use('/providers', providerRoute)
 mongoose.connect(process.env.MONGO_URL)
   .then(() => {
     console.log('MongoDB is Connected!');
-    app.listen(PORT, () => console.log(`Server Started on Port ${PORT}`))
+    app.listen(PORT, () => console.log(`Server Started`))
   }).catch((error) => {
     console.log('Error', error)
   })
