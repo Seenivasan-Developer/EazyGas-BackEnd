@@ -12,7 +12,7 @@ router.post("/register", async (req, res) => {
         const { name, mobileNo, password } = req.body;
         const isUserExist = await getUserNameByMobileNo(mobileNo);
         if (isUserExist) {
-            res.send({Sucess:false,message:"Mobile No already registered"});
+            res.status(400).send({Sucess:false,message:"Mobile No already registered"});
             return
         }
         const hashedPassword = await genHashPassword(password);
