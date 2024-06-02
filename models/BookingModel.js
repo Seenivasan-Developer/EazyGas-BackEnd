@@ -24,7 +24,7 @@ const BookingSchema = new mongoose.Schema(
         },
         gasAmount: { type: Number, require: true },
         paymentMode: { type: String, require: true },
-        isDelivered: { type: Boolean, require: true }
+        DeliveryStatus: { type: String, require: true }
 
     },
     { timestamps: true }

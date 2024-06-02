@@ -36,4 +36,25 @@ router.get("/getBookingByUserID", async (req, res) => {
     }
 })
 
+//CancelBookingByID
+router.post("/CancelBookingByID", async (req, res) => {
+    try {
+        const {bookingid}=req.body;
+        await BookingModel.findOneAndUpdate({_id:bookingid},{$set:{DeliveryStatus:'Cancelled'}});
+        res.send({message:"Booking cancelled Sucessfully"});
+    } catch (error) {
+        res.status(400).json(error);
+    }
+})
+
+//UpdateBookingByID
+router.post("/UpdateBookingByID", async (req, res) => {
+    try {
+        await BookingModel.findOneAndUpdate({ _id: req.body._Id }, req.body)
+        res.send({message:"Booking Details updated successfully"})
+    } catch (error) {
+        res.status(400).json(error)
+    }
+})
+
 module.exports=router
