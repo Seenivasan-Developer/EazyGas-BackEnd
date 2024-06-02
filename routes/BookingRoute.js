@@ -25,4 +25,15 @@ router.get("/getAllBooking", async (req, res) => {
     }
 })
 
+//getBookingByUserID
+router.get("/getBookingByUserID", async (req, res) => {
+    try {
+        const {userid}=req.body;
+        const Bookings = await BookingModel.find({'userDetails.userid':userid});
+        res.send(Bookings);
+    } catch (error) {
+        res.status(400).json(error);
+    }
+})
+
 module.exports=router
