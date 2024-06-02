@@ -28,7 +28,7 @@ router.get("/getAllBooking", async (req, res) => {
 //getBookingByUserID
 router.get("/getBookingByUserID", async (req, res) => {
     try {
-        const {userid}=req.body;
+        const {userid}=req.query;
         const Bookings = await BookingModel.find({'userDetails.userid':userid});
         res.send(Bookings);
     } catch (error) {
