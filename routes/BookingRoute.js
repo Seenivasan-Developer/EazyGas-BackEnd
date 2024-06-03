@@ -1,11 +1,12 @@
 const express = require("express");
 const BookingModel = require("../models/BookingModel");
+const auth = require("../middleware/auth");
 
 
 const router = express.Router();
 
 //add New Booking
-router.post("/newBooking", async (req, res) => {
+router.post("/newBooking",auth, async (req, res) => {
     try {
         const newBooking = new BookingModel(req.body);
         await newBooking.save();//to create newBooking
@@ -16,7 +17,7 @@ router.post("/newBooking", async (req, res) => {
 })
 
 //getAllBooking
-router.get("/getAllBooking", async (req, res) => {
+router.get("/getAllBooking",auth, async (req, res) => {
     try {
         const Bookings = await BookingModel.find();
         res.send(Bookings);
@@ -26,7 +27,7 @@ router.get("/getAllBooking", async (req, res) => {
 })
 
 //getBookingByUserID
-router.get("/getBookingByUserID", async (req, res) => {
+router.get("/getBookingByUserID",auth, async (req, res) => {
     try {
         const {userid}=req.query;
         const Bookings = await BookingModel.find({'userDetails.userid':userid});
@@ -37,7 +38,7 @@ router.get("/getBookingByUserID", async (req, res) => {
 })
 
 //CancelBookingByID
-router.post("/CancelBookingByID", async (req, res) => {
+router.post("/CancelBookingByID",auth, async (req, res) => {
     try {
         const {bookingid}=req.body;
         await BookingModel.findOneAndUpdate({_id:bookingid},{$set:{DeliveryStatus:'Cancelled'}});
@@ -48,7 +49,7 @@ router.post("/CancelBookingByID", async (req, res) => {
 })
 
 //UpdateBookingByID
-router.post("/UpdateBookingByID", async (req, res) => {
+router.post("/UpdateBookingByID",auth, async (req, res) => {
     try {
         const {bookingid,formData}=req.body;
         await BookingModel.findOneAndUpdate({ _id: bookingid }, formData)

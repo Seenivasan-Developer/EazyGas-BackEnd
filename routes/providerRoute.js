@@ -1,6 +1,7 @@
 const express =require("express");
 const providerModel = require("../models/providerModel");
 const { getProviderByProviderName } = require("../models/helper");
+const auth = require("../middleware/auth");
 
 
 const router=express.Router();
@@ -23,7 +24,7 @@ router.post("/addProvider",async (req, res)=>{
 })
 
 //get all providers
-router.get("/getAllProviders",async (req,res)=>{
+router.get("/getAllProviders",auth,async (req,res)=>{
     try{
     const providers=await providerModel.find();
     res.send(providers);
