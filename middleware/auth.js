@@ -3,7 +3,7 @@ const jwt=require("jsonwebtoken");
 
 const auth=((req,res,next)=>{
     try {
-        const token=req.header("x-auth-token")
+        const token=req.headers("x-auth-token")
         console.log(token);
         if (!token) {
             return res.status(403).send({ message: `No token provided! ${token}` });
