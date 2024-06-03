@@ -50,7 +50,8 @@ router.post("/CancelBookingByID", async (req, res) => {
 //UpdateBookingByID
 router.post("/UpdateBookingByID", async (req, res) => {
     try {
-        await BookingModel.findOneAndUpdate({ _id: req.body._Id }, req.body)
+        const {bookingid,formData}=req.body;
+        await BookingModel.findOneAndUpdate({ _id: bookingid }, formData)
         res.send({message:"Booking Details updated successfully"})
     } catch (error) {
         res.status(400).json(error)
