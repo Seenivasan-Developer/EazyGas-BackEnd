@@ -5,6 +5,7 @@ const dotenv = require('dotenv')
 const userRoute = require("./routes/userRoute")
 const providerRoute = require('./routes/providerRoute');
 const BookingRoute = require("./routes/BookingRoute");
+const auth = require("./middleware/auth");
 dotenv.config();
 
 const app = express();
@@ -14,6 +15,7 @@ const PORT = process.env.PORT;
 //Middleware Injection
 app.use(express.json());
 app.use(cors());
+app.use(auth);
 
 app.get('/', (req, res) => {
   res.send('Welcome to EazyGas...');
