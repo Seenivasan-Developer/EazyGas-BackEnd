@@ -6,7 +6,7 @@ const auth=((req,res,next)=>{
         const token=req.header("x-auth-token")
         console.log(token);
         if (!token) {
-            return res.status(403).send({ message: 'No token provided!' });
+            return res.status(403).send({ message: `No token provided! ${token}` });
         }
         jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
             if (err) {
