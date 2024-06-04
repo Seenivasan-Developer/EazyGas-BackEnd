@@ -2,9 +2,10 @@ const router = require('express').Router();
 const Razorpay=require('razorpay');
 const crypto=require('crypto');
 const { error } = require('console');
+const auth = require('../middleware/auth');
 
 //create order
-router.post('/order', async(req,res)=>{
+router.post('/order', auth, async(req,res)=>{
 try {
     var instance = new Razorpay({
         key_id: process.env.KEY_ID,
@@ -30,7 +31,7 @@ try {
 });
 
 //payment verify
-router.post("/verify", async(req,res)=>{
+router.post("/verify", auth, async(req,res)=>{
     try {
         const {
             razorpay_order_id,
@@ -38,12 +39,11 @@ router.post("/verify", async(req,res)=>{
             razorpay_signature
         }=req.body;
         const sign=razorpay_order_id+"|"+razorpay_payment_id;
-        generated_signature = hmac_sha256(order_id + "|" + razorpay_payment_id, secret);
-
-        const expectedSign = crypto
-        .createHmac("sha256", process.env.KEY_SECRET)
-        .update(sign.toString())
-        .digest("hex");
+       
+       const expectedSign = crypto
+            .createHmac("sha256", process.env.KEY_SECRET)
+            .update(sign)
+            .digest("hex");
 
     if (razorpay_signature === expectedSign) {
         return res.status(200).json({ message: "Payment verified successfully" });
