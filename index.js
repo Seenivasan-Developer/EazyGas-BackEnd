@@ -15,7 +15,7 @@ const PORT = process.env.PORT;
 //Middleware Injection
 app.use(express.json());
 app.use(cors());
-app.use(auth);
+//app.use(auth);
 
 app.get('/', (req, res) => {
   res.send('Welcome to EazyGas...');
