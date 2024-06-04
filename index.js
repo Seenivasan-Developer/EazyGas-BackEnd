@@ -5,7 +5,7 @@ const dotenv = require('dotenv')
 const userRoute = require("./routes/userRoute")
 const providerRoute = require('./routes/providerRoute');
 const BookingRoute = require("./routes/BookingRoute");
-const auth = require("./middleware/auth");
+const PaymentRoute=require("./routes/PaymentRoute");
 dotenv.config();
 
 const app = express();
@@ -24,6 +24,7 @@ app.get('/', (req, res) => {
 app.use('/users', userRoute);
 app.use('/providers', providerRoute);
 app.use('/booking',BookingRoute)
+app.use('/payment',PaymentRoute)
 
 //MongoDB Connection and Port Listening
 mongoose.connect(process.env.MONGO_URL)
